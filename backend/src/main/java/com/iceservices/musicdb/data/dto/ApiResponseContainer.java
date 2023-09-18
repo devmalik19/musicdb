@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 public class ApiResponseContainer
 {
     private int status;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object data;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

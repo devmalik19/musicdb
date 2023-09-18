@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 @ConfigurationProperties(prefix = "exceptions")
@@ -13,4 +12,5 @@ import org.springframework.stereotype.Service;
 public class ExceptionMessage
 {
     private String defaultMessage;
+    private String notFoundMessage;
 }

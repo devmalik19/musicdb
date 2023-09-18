@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "bdb42b53-db3b-4f80-a08a-1cbc443a861c",
+		"name": "MusicDB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11366690"
+	},
+	"item": [
+		{
+			"name": "track",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/track?page=&size=&search=",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"track"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": ""
+						},
+						{
+							"key": "size",
+							"value": ""
+						},
+						{
+							"key": "search",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

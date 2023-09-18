@@ -21,5 +21,10 @@ public class Artist extends CommonDBFields
 
     @JsonManagedReference
     @OneToMany(mappedBy = "artist")
-    private List<Collaborator> collaborator;
+    private List<Collaborator> collaborators;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "artist")
+    private List<Alias> aliases;
+
 }

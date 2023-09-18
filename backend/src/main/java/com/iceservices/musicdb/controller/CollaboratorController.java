@@ -1,24 +1,35 @@
 package com.iceservices.musicdb.controller;
 
-import com.iceservices.musicdb.data.dao.Collaborator;
+import com.iceservices.musicdb.data.dto.ApiResponseContainer;
+import com.iceservices.musicdb.service.ApiResponseService;
 import com.iceservices.musicdb.service.CollaboratorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
-@RequestMapping("collaborator")
-public class CollaboratorController
+@RequestMapping("collab")
+public class CollaboratorController extends ApiControllerBase
 {
     @Autowired
     private CollaboratorService collaboratorService;
 
-    @GetMapping
-    public List<Collaborator> findAll()
+    @PatchMapping("/{trackId}/add/{artistId}")
+    public ResponseEntity<ApiResponseContainer> add(@PathVariable Long trackId,
+                                                    @PathVariable Long artistId,
+                                                    @RequestParam String role)
     {
-        return collaboratorService.findAll();
+        collaboratorService.addArtistToTrack(trackId, artistId, role);
+        return apiResponseService.prepareApiResponse("Artist added to track", ApiResponseService.TYPE.CREATED);
+    }
+
+    @PatchMapping("/{trackId}/remove/{artistId}")
+    public ResponseEntity<ApiResponseContainer> remove(@PathVariable Long trackId,
+                                                    @PathVariable Long artistId,
+                                                    @RequestParam String role)
+    {
+        collaboratorService.removeArtistFromTrack(trackId, artistId, role);
+        return apiResponseService.prepareApiResponse("Artist removed from the track", ApiResponseService.TYPE.REMOVED);
     }
 }
