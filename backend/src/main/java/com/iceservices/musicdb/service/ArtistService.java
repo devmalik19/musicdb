@@ -43,13 +43,17 @@ public class ArtistService
         return page.getContent();
     }
 
+    @SneakyThrows
     public Artist getById(Long id)
     {
-        Optional<Artist> Artist = artistRepository.findById(id);
-        return Artist.get();
+        Optional<Artist> artist = artistRepository.findById(id);
+        if(artist.isPresent())
+            return artist.get();
+        else
+            throw new ResourceNotFoundException("No such artist!");
     }
 
-    public Artist save( ArtistRequest artistRequest)
+    public Artist save(ArtistRequest artistRequest)
     {
         Artist firstArtist = artistRepository.findFirstByOrderByIdDesc();
         Artist lastArtist = artistRepository.findFirstByOrderByIdDesc();
@@ -137,6 +141,7 @@ public class ArtistService
         return artist;
     }
 
+    @SneakyThrows
     public List<Track> getTracks(Long id)
     {
         List<Track> trackList = new ArrayList<>();
@@ -145,6 +150,8 @@ public class ArtistService
         {
             trackList = artist.get().getCollaborators().stream().map(Collaborator::getTrack).collect(Collectors.toList());
         }
+        else
+            throw new ResourceNotFoundException("No such artist !");
 
         return trackList;
     }

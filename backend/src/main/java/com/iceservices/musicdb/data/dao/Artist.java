@@ -1,6 +1,7 @@
 package com.iceservices.musicdb.data.dao;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.iceservices.musicdb.data.constant.ArtistType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;

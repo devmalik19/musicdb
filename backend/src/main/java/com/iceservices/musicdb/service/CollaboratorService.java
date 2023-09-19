@@ -2,7 +2,7 @@ package com.iceservices.musicdb.service;
 
 import com.iceservices.musicdb.data.dao.Artist;
 import com.iceservices.musicdb.data.dao.Collaborator;
-import com.iceservices.musicdb.data.dao.CollaboratorRole;
+import com.iceservices.musicdb.data.constant.CollaboratorRole;
 import com.iceservices.musicdb.data.dao.Track;
 import com.iceservices.musicdb.data.exception.InvalidDataException;
 import com.iceservices.musicdb.data.exception.InvalidRoleException;

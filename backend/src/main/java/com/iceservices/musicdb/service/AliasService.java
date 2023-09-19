@@ -22,9 +22,6 @@ public class AliasService
     public void addAliasToArtist(Long artistId, String name)
     {
         Artist artist = artistService.getById(artistId);
-        if(artist==null)
-            throw new ResourceNotFoundException("No such Artist !");
-
         Alias alias = new Alias();
         alias.setArtist(artist);
         alias.setName(name);

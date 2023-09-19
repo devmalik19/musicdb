@@ -46,7 +46,7 @@ public class ArtistController extends ApiControllerBase
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ApiResponseContainer> update(@PathVariable Long id, @RequestBody  ArtistRequest artistRequest)
+    public ResponseEntity<ApiResponseContainer> update(@PathVariable Long id, @Valid @RequestBody ArtistRequest artistRequest)
     {
         Artist artist = artistService.update(id, artistRequest);
         return apiResponseService.prepareApiResponse(artist);

@@ -1,6 +1,7 @@
 package com.iceservices.musicdb.data.dao;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.iceservices.musicdb.data.constant.Genre;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class Track extends CommonDBFields
 
     private String title;
     private String album;
-    private String genre;
+    private Genre genre;
     private Integer length;
     private LocalDate release;
     private String language;

@@ -2,7 +2,9 @@ package com.iceservices.musicdb.service;
 
 import com.iceservices.musicdb.data.dao.Track;
 import com.iceservices.musicdb.data.dto.TrackRequest;
+import com.iceservices.musicdb.data.exception.ResourceNotFoundException;
 import com.iceservices.musicdb.repository.TrackRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,10 +29,14 @@ public class TrackService
         return page.getContent();
     }
 
+    @SneakyThrows
     public Track getById(Long id)
     {
         Optional<Track> track = trackRepository.findById(id);
-        return track.get();
+        if(track.isPresent())
+            return track.get();
+        else
+            throw new ResourceNotFoundException("No Artist found!");
     }
 
     public Track save(TrackRequest trackRequest)
@@ -38,7 +44,7 @@ public class TrackService
         Track track = new Track();
         track.setTitle(trackRequest.getTitle());
         track.setAlbum(trackRequest.getAlbum());
-        track.setGenre(trackRequest.getAlbum());
+        track.setGenre(trackRequest.getGenre());
         track.setLength(trackRequest.getLength());
         track.setRelease(trackRequest.getRelease());
         return trackRepository.save(track);

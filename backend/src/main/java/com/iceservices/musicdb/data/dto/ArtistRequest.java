@@ -1,6 +1,6 @@
 package com.iceservices.musicdb.data.dto;
 
-import com.iceservices.musicdb.data.dao.ArtistType;
+import com.iceservices.musicdb.data.constant.ArtistType;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -45,7 +45,7 @@ public class TrackController extends ApiControllerBase
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ApiResponseContainer> update(@PathVariable Long id, @RequestBody TrackRequest trackRequest)
+    public ResponseEntity<ApiResponseContainer> update(@PathVariable Long id, @Valid @RequestBody TrackRequest trackRequest)
     {
         Track track = trackService.update(id,trackRequest);
         return apiResponseService.prepareApiResponse(track);

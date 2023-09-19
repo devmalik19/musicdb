@@ -1,5 +1,6 @@
 package com.iceservices.musicdb.data.dto;
 
+import com.iceservices.musicdb.data.constant.Genre;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ public class TrackRequest
 {
     private String title;
     private String album;
-    private String genre;
+    private Genre genre;
     private Integer length;
     private LocalDate release;
     private String language;

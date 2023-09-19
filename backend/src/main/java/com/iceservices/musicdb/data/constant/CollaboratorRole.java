@@ -1,4 +1,4 @@
-package com.iceservices.musicdb.data.dao;
+package com.iceservices.musicdb.data.constant;
 
 public enum CollaboratorRole
 {

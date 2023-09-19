@@ -1,6 +1,7 @@
 package com.iceservices.musicdb.data.dao;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.iceservices.musicdb.data.constant.CollaboratorRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
