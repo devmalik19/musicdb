@@ -1,6 +1,7 @@
 package com.iceservices.musicdb.service;
 
 import com.iceservices.musicdb.data.dao.Track;
+import com.iceservices.musicdb.data.dto.TrackRequest;
 import com.iceservices.musicdb.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,27 +33,33 @@ public class TrackService
         return track.get();
     }
 
-    public void save(Track track)
+    public Track save(TrackRequest trackRequest)
     {
-        trackRepository.save(track);
+        Track track = new Track();
+        track.setTitle(trackRequest.getTitle());
+        track.setAlbum(trackRequest.getAlbum());
+        track.setGenre(trackRequest.getAlbum());
+        track.setLength(trackRequest.getLength());
+        track.setRelease(trackRequest.getRelease());
+        return trackRepository.save(track);
     }
 
-    public void update(Long id, Track updateTrack)
+    public Track update(Long id, TrackRequest trackRequest)
     {
         Track track = this.getById(id);
-        if(updateTrack.getTitle()!=null)
-            track.setTitle(updateTrack.getTitle());
-        if(updateTrack.getAlbum()!=null)
-            track.setAlbum(updateTrack.getAlbum());
-        if(updateTrack.getLength()!=null)
-            track.setLength(updateTrack.getLength());
-        if(updateTrack.getGenre()!=null)
-            track.setGenre(updateTrack.getGenre());
-        if(updateTrack.getRelease()!=null)
-            track.setRelease(updateTrack.getRelease());
-        if(updateTrack.getLanguage()!=null)
-            track.setLanguage(updateTrack.getLanguage());
-        trackRepository.save(track);
+        if(trackRequest.getTitle()!=null)
+            track.setTitle(trackRequest.getTitle());
+        if(trackRequest.getAlbum()!=null)
+            track.setAlbum(trackRequest.getAlbum());
+        if(trackRequest.getLength()!=null)
+            track.setLength(trackRequest.getLength());
+        if(trackRequest.getGenre()!=null)
+            track.setGenre(trackRequest.getGenre());
+        if(trackRequest.getRelease()!=null)
+            track.setRelease(trackRequest.getRelease());
+        if(trackRequest.getLanguage()!=null)
+            track.setLanguage(trackRequest.getLanguage());
+        return trackRepository.save(track);
     }
 }
 

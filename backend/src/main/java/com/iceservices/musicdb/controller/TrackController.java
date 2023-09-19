@@ -2,6 +2,7 @@ package com.iceservices.musicdb.controller;
 
 import com.iceservices.musicdb.data.dao.Track;
 import com.iceservices.musicdb.data.dto.ApiResponseContainer;
+import com.iceservices.musicdb.data.dto.TrackRequest;
 import com.iceservices.musicdb.service.TrackService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,16 @@ public class TrackController extends ApiControllerBase
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponseContainer> create(@Valid @RequestBody Track track)
+    public ResponseEntity<ApiResponseContainer> create(@Valid @RequestBody TrackRequest trackRequest)
     {
-        trackService.save(track);
+        Track track = trackService.save(trackRequest);
         return apiResponseService.prepareApiResponse(track);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ApiResponseContainer> update(@PathVariable Long id, @RequestBody Track track)
+    public ResponseEntity<ApiResponseContainer> update(@PathVariable Long id, @RequestBody TrackRequest trackRequest)
     {
-        trackService.update(id,track);
+        Track track = trackService.update(id,trackRequest);
         return apiResponseService.prepareApiResponse(track);
     }
 

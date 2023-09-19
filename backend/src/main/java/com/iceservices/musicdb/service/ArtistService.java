@@ -1,11 +1,13 @@
 package com.iceservices.musicdb.service;
 
-import com.google.gson.JsonObject;
 import com.iceservices.musicdb.data.dao.*;
+import com.iceservices.musicdb.data.dto.ArtistRequest;
+import com.iceservices.musicdb.data.exception.ResourceNotFoundException;
 import com.iceservices.musicdb.helper.CommonUtilities;
 import com.iceservices.musicdb.repository.ArtistQueueRepository;
 import com.iceservices.musicdb.repository.ArtistRepository;
 import com.iceservices.musicdb.repository.StateRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,11 +49,16 @@ public class ArtistService
         return Artist.get();
     }
 
-    public void save(Artist artist)
+    public Artist save( ArtistRequest artistRequest)
     {
         Artist firstArtist = artistRepository.findFirstByOrderByIdDesc();
         Artist lastArtist = artistRepository.findFirstByOrderByIdDesc();
 
+        Artist artist =  new Artist();
+        artist.setName(artistRequest.getName());
+        artist.setType(artistRequest.getType());
+        artist.setDob(artistRequest.getDob());
+        artist.setBiography(artistRequest.getBiography());
         artistRepository.save(artist);
 
         ArtistQueue artistQueue = new ArtistQueue();
@@ -61,22 +69,25 @@ public class ArtistService
         ArtistQueue artistQueuePrevious = artistQueueRepository.findByArtistId(lastArtist.getId()).get();
         artistQueuePrevious.setNextArtist(artist);
         artistQueueRepository.save(artistQueuePrevious);
+
+        return artist;
     }
 
-    public void update(Long id, Artist updateArtist)
+    public Artist update(Long id, ArtistRequest artistRequest)
     {
-        Artist Artist = this.getById(id);
-        if(updateArtist.getName()!=null)
-            Artist.setName(updateArtist.getName());
-        if(updateArtist.getBiography()!=null)
-            Artist.setBiography(updateArtist.getBiography());
-        if(updateArtist.getDob()!=null)
-            Artist.setDob(updateArtist.getDob());
-        if(updateArtist.getType()!=null)
-            Artist.setType(updateArtist.getType());
-        artistRepository.save(Artist);
+        Artist artist = this.getById(id);
+        if(artistRequest.getName()!=null)
+            artist.setName(artistRequest.getName());
+        if(artistRequest.getBiography()!=null)
+            artist.setBiography(artistRequest.getBiography());
+        if(artistRequest.getDob()!=null)
+            artist.setDob(artistRequest.getDob());
+        if(artistRequest.getType()!=null)
+            artist.setType(artistRequest.getType());
+        return artistRepository.save(artist);
     }
 
+    @SneakyThrows
     public Artist getAotd()
     {
         Artist artist = null;
@@ -84,9 +95,9 @@ public class ArtistService
         if(optionalState.isPresent())
         {
             State state = optionalState.get();
-            JsonObject aotd = commonUtilities.convertStringToJsonObject(state.getData());
-            LocalDate today =   commonUtilities.convertStringToLocalDate(aotd.get("date").toString());
-            Long artistId = aotd.get("artistId").getAsLong();
+            Map<String, Object> data = state.getData();
+            LocalDate today =   commonUtilities.convertStringToLocalDate(data.get("date").toString());
+            Long artistId =  Long.parseLong(data.get("artistId").toString());
             Optional<Artist> artistOptional = artistRepository.findById(artistId);
             if(artistOptional.isPresent())
             {
@@ -96,17 +107,31 @@ public class ArtistService
                 }
                 else
                 {
-                    JsonObject jsonObject = new JsonObject();
                     Optional<ArtistQueue> artistQueue = artistQueueRepository.findByArtistId(artistId);
                     if(artistQueue.isPresent())
                     {
-                        jsonObject.addProperty("date", LocalDate.now().toString());
-                        jsonObject.addProperty("artistId", artistQueue.get().getNextArtist().getId());
+                        data.put("date", LocalDate.now().toString());
+                        data.put("artistId", artistQueue.get().getNextArtist().getId());
                     }
 
-                    state.setData(jsonObject.toString());
+                    state.setData(data);
                     stateRepository.save(state);
+
+                    artistOptional = artistRepository.findById((Long) data.get("artistId"));
+                    if(artistOptional.isPresent())
+                    {
+                        artist = artistOptional.get();
+
+                    }
+                    else
+                    {
+                        throw new ResourceNotFoundException("No such artist !");
+                    }
                 }
+            }
+            else
+            {
+                throw new ResourceNotFoundException("No such artist !");
             }
         }
         return artist;

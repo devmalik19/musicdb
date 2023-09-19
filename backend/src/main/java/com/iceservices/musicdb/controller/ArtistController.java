@@ -3,6 +3,7 @@ package com.iceservices.musicdb.controller;
 import com.iceservices.musicdb.data.dao.Artist;
 import com.iceservices.musicdb.data.dao.Track;
 import com.iceservices.musicdb.data.dto.ApiResponseContainer;
+import com.iceservices.musicdb.data.dto.ArtistRequest;
 import com.iceservices.musicdb.service.ArtistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +39,16 @@ public class ArtistController extends ApiControllerBase
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponseContainer> create(@Valid @RequestBody Artist artist)
+    public ResponseEntity<ApiResponseContainer> create(@Valid @RequestBody ArtistRequest artistRequest)
     {
-        artistService.save(artist);
+        Artist artist = artistService.save(artistRequest);
         return apiResponseService.prepareApiResponse(artist);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ApiResponseContainer> update(@PathVariable Long id, @RequestBody Artist artist)
+    public ResponseEntity<ApiResponseContainer> update(@PathVariable Long id, @RequestBody  ArtistRequest artistRequest)
     {
-        artistService.update(id,artist);
+        Artist artist = artistService.update(id, artistRequest);
         return apiResponseService.prepareApiResponse(artist);
     }
 

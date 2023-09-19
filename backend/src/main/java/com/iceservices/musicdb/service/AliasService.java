@@ -26,6 +26,8 @@ public class AliasService
             throw new ResourceNotFoundException("No such Artist !");
 
         Alias alias = new Alias();
+        alias.setArtist(artist);
+        alias.setName(name);
         aliasRepository.save(alias);
     }
 

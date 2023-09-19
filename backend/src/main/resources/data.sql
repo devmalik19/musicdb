@@ -21,7 +21,7 @@ INSERT INTO artist_queue(artist_id, next_artist) VALUES(1,2);
 INSERT INTO artist_queue(artist_id, next_artist) VALUES(2,3);
 INSERT INTO artist_queue(artist_id, next_artist) VALUES(3,1);
 
-INSERT INTO state(name, data) VALUES('Artist.Of.The.Day','{date:2023-09-19,artistId:1}');
+INSERT INTO state(name, data) VALUES('Artist.Of.The.Day','{"date":"2023-09-19","artistId":1}');
 
 
 

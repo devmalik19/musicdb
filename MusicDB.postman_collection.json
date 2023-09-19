@@ -96,13 +96,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{domain}}/track/6",
+					"raw": "{{domain}}/track/7",
 					"host": [
 						"{{domain}}"
 					],
 					"path": [
 						"track",
-						"6"
+						"7"
 					]
 				}
 			},
@@ -184,6 +184,33 @@
 			"response": []
 		},
 		{
+			"name": "artist/{id}",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Zazzy A\",\r\n    \"biography\" : \"Old kid on the block\",\r\n    \"dob\" : \"1989-03-02\",\r\n    \"type\" : \"SINGER\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/artist/5",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"artist",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "artist/{id}/tracks",
 			"request": {
 				"method": "GET",
@@ -221,39 +248,12 @@
 			"response": []
 		},
 		{
-			"name": "artist/{id}",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\" : \"Zazzy A\",\r\n    \"biography\" : \"Old kid on the block\",\r\n    \"dob\" : \"1989-03-02\",\r\n    \"type\" : \"Giutarrist\"\r\n}   ",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}/artist/5",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"artist",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "colloab/{trackId}/add/{artistId}",
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "{{domain}}/collab/1/add/1",
+					"raw": "{{domain}}/collab/1/add/1?role=Singer",
 					"host": [
 						"{{domain}}"
 					],
@@ -262,6 +262,12 @@
 						"1",
 						"add",
 						"1"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "Singer"
+						}
 					]
 				}
 			},
