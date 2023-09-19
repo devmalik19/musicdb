@@ -22,7 +22,7 @@ public class TrackService
         if(search.isBlank())
             page = trackRepository.findAll(paging);
         else
-            page = trackRepository.findByTitle(search, paging);
+            page = trackRepository.findByTitleContainingIgnoreCase(search, paging);
         return page.getContent();
     }
 

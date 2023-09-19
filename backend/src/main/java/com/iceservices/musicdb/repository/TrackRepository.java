@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TrackRepository extends JpaRepository<Track, Long>
 {
-    Page<Track> findByTitle(String search, Pageable paging);
+    Page<Track> findByTitleContainingIgnoreCase(String search, Pageable paging);
 }

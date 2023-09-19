@@ -1,7 +1,6 @@
 package com.iceservices.musicdb.service;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.iceservices.musicdb.data.dao.*;
 import com.iceservices.musicdb.helper.CommonUtilities;
 import com.iceservices.musicdb.repository.ArtistQueueRepository;
@@ -47,9 +46,21 @@ public class ArtistService
         return Artist.get();
     }
 
-    public void save(Artist Artist)
+    public void save(Artist artist)
     {
-        artistRepository.save(Artist);
+        Artist firstArtist = artistRepository.findFirstByOrderByIdDesc();
+        Artist lastArtist = artistRepository.findFirstByOrderByIdDesc();
+
+        artistRepository.save(artist);
+
+        ArtistQueue artistQueue = new ArtistQueue();
+        artistQueue.setArtist(artist);
+        artistQueue.setNextArtist(firstArtist);
+        artistQueueRepository.save(artistQueue);
+
+        ArtistQueue artistQueuePrevious = artistQueueRepository.findByArtistId(lastArtist.getId()).get();
+        artistQueuePrevious.setNextArtist(artist);
+        artistQueueRepository.save(artistQueuePrevious);
     }
 
     public void update(Long id, Artist updateArtist)
@@ -69,11 +80,11 @@ public class ArtistService
     public Artist getAotd()
     {
         Artist artist = null;
-        Optional<State> optionalState = stateRepository.findByKey("Artist.Of.The.Day");
+        Optional<State> optionalState = stateRepository.findByName("Artist.Of.The.Day");
         if(optionalState.isPresent())
         {
             State state = optionalState.get();
-            JsonObject aotd = commonUtilities.convertStringToJsonObject(state.getValue());
+            JsonObject aotd = commonUtilities.convertStringToJsonObject(state.getData());
             LocalDate today =   commonUtilities.convertStringToLocalDate(aotd.get("date").toString());
             Long artistId = aotd.get("artistId").getAsLong();
             Optional<Artist> artistOptional = artistRepository.findById(artistId);
@@ -93,7 +104,7 @@ public class ArtistService
                         jsonObject.addProperty("artistId", artistQueue.get().getNextArtist().getId());
                     }
 
-                    state.setValue(jsonObject.toString());
+                    state.setData(jsonObject.toString());
                     stateRepository.save(state);
                 }
             }

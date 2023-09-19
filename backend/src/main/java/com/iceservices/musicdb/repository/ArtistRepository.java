@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface ArtistRepository extends JpaRepository<Artist, Long>
 {
     Page<Artist> findByName(String search, Pageable paging);
+    Artist findFirstByOrderByIdDesc();
+    Artist findLastByOrderByIdDesc();
 }

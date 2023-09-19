@@ -47,8 +47,7 @@ public class CollaboratorService
         Collaborator collaborator = new Collaborator();
         try
         {
-            collaborator.setRole(CollaboratorRole.valueOf(role));
-
+            collaborator.setRole(CollaboratorRole.valueOf(role.toUpperCase()));
         }
         catch (IllegalArgumentException e)
         {
@@ -65,7 +64,7 @@ public class CollaboratorService
     }
 
     @SneakyThrows
-    public void removeArtistFromTrack(Long trackId, Long artistId, String role)
+    public void removeArtistFromTrack(Long trackId, Long artistId)
     {
         Artist artist = artistService.getById(artistId);
         Track track = trackService.getById(trackId);
@@ -76,23 +75,10 @@ public class CollaboratorService
         if(track==null)
             throw new ResourceNotFoundException("No such track !");
 
-        Collaborator collaborator = new Collaborator();
-        try
-        {
-            collaborator.setRole(CollaboratorRole.valueOf(role));
-
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw new InvalidRoleException("Invalid collaborator role !");
-        }
-
-        collaborator.setArtist(artist);
-        collaborator.setTrack(track);
 
         Optional<Collaborator> found = collaboratorRepository.findOneByArtistIdAndTrackId(artistId, trackId);
         if(found.isPresent())
-            collaboratorRepository.delete(collaborator);
+            collaboratorRepository.delete(found.get());
         else
             throw new InvalidDataException("Already deleted !");
     }

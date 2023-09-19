@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface StateRepository extends JpaRepository<State, Long>
 {
-    Optional<State> findByKey(String key);
+    Optional<State> findByName(String name);
 }

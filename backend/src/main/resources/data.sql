@@ -17,3 +17,11 @@ INSERT INTO artist(name, biography, dob) VALUES('Pink!', 'Pink! is a USA pop sin
 INSERT INTO artist(name, biography, dob) VALUES('Katty Perry', 'Katty Perry is a USA pop singer', '1991-01-01');
 INSERT INTO artist(name, biography, dob) VALUES('Damien', 'Damien is an member of USA boy band Back Street Boys', '1991-01-01');
 
+INSERT INTO artist_queue(artist_id, next_artist) VALUES(1,2);
+INSERT INTO artist_queue(artist_id, next_artist) VALUES(2,3);
+INSERT INTO artist_queue(artist_id, next_artist) VALUES(3,1);
+
+INSERT INTO state(name, data) VALUES('Artist.Of.The.Day','{date:2023-09-19,artistId:1}');
+
+
+

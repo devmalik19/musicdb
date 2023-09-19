@@ -26,10 +26,9 @@ public class CollaboratorController extends ApiControllerBase
 
     @PatchMapping("/{trackId}/remove/{artistId}")
     public ResponseEntity<ApiResponseContainer> remove(@PathVariable Long trackId,
-                                                    @PathVariable Long artistId,
-                                                    @RequestParam String role)
+                                                    @PathVariable Long artistId)
     {
-        collaboratorService.removeArtistFromTrack(trackId, artistId, role);
+        collaboratorService.removeArtistFromTrack(trackId, artistId);
         return apiResponseService.prepareApiResponse("Artist removed from the track", ApiResponseService.TYPE.REMOVED);
     }
 }

@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class State extends CommonDBFields
 {
-    private String key;
-    private String value;
+    private String name;
+    private String data;
 }

@@ -26,7 +26,18 @@ CREATE TABLE artist
     modified_by DATE
 );
 
-CREATE TABLE Collaborator
+CREATE TABLE alias
+(
+    id INT auto_increment PRIMARY KEY,
+    name TEXT,
+    artist_id INT,
+    created_on DATE,
+    modified_on  DATE,
+    created_by DATE,
+    modified_by DATE
+);
+
+CREATE TABLE collaborator
 (
     id INT auto_increment PRIMARY KEY,
     track_id INT,
@@ -36,4 +47,22 @@ CREATE TABLE Collaborator
     modified_on  DATE,
     created_by DATE,
     modified_by DATE
+);
+
+CREATE TABLE state
+(
+    id INT auto_increment PRIMARY KEY,
+    name TEXT,
+    data TEXT,
+    created_on DATE,
+    modified_on  DATE,
+    created_by DATE,
+    modified_by DATE
+);
+
+CREATE TABLE artist_queue
+(
+    id INT auto_increment PRIMARY KEY,
+    artist_id INT,
+    next_artist INT
 );
