@@ -1,20 +1,35 @@
 package com.iceservices.musicdb.service;
 
-import com.iceservices.musicdb.data.dao.Artist;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.iceservices.musicdb.data.dao.*;
+import com.iceservices.musicdb.helper.CommonUtilities;
+import com.iceservices.musicdb.repository.ArtistQueueRepository;
 import com.iceservices.musicdb.repository.ArtistRepository;
+import com.iceservices.musicdb.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArtistService
 {
     @Autowired
     private ArtistRepository artistRepository;
+    @Autowired
+    private ArtistQueueRepository artistQueueRepository;
+    @Autowired
+    private StateRepository stateRepository;
+
+    @Autowired
+    private CommonUtilities commonUtilities;
 
     public List<Artist> getList(String search, Pageable paging)
     {
@@ -49,5 +64,52 @@ public class ArtistService
         if(updateArtist.getType()!=null)
             Artist.setType(updateArtist.getType());
         artistRepository.save(Artist);
+    }
+
+    public Artist getAotd()
+    {
+        Artist artist = null;
+        Optional<State> optionalState = stateRepository.findByKey("Artist.Of.The.Day");
+        if(optionalState.isPresent())
+        {
+            State state = optionalState.get();
+            JsonObject aotd = commonUtilities.convertStringToJsonObject(state.getValue());
+            LocalDate today =   commonUtilities.convertStringToLocalDate(aotd.get("date").toString());
+            Long artistId = aotd.get("artistId").getAsLong();
+            Optional<Artist> artistOptional = artistRepository.findById(artistId);
+            if(artistOptional.isPresent())
+            {
+                if (today.equals(LocalDate.now()))
+                {
+                    artist = artistOptional.get();
+                }
+                else
+                {
+                    JsonObject jsonObject = new JsonObject();
+                    Optional<ArtistQueue> artistQueue = artistQueueRepository.findByArtistId(artistId);
+                    if(artistQueue.isPresent())
+                    {
+                        jsonObject.addProperty("date", LocalDate.now().toString());
+                        jsonObject.addProperty("artistId", artistQueue.get().getNextArtist().getId());
+                    }
+
+                    state.setValue(jsonObject.toString());
+                    stateRepository.save(state);
+                }
+            }
+        }
+        return artist;
+    }
+
+    public List<Track> getTracks(Long id)
+    {
+        List<Track> trackList = new ArrayList<>();
+        Optional<Artist> artist = artistRepository.findById(id);
+        if(artist.isPresent())
+        {
+            trackList = artist.get().getCollaborators().stream().map(Collaborator::getTrack).collect(Collectors.toList());
+        }
+
+        return trackList;
     }
 }

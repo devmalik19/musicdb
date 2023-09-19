@@ -1,6 +1,7 @@
 package com.iceservices.musicdb.controller;
 
 import com.iceservices.musicdb.data.dao.Artist;
+import com.iceservices.musicdb.data.dao.Track;
 import com.iceservices.musicdb.data.dto.ApiResponseContainer;
 import com.iceservices.musicdb.service.ArtistService;
 import jakarta.validation.Valid;
@@ -25,8 +26,8 @@ public class ArtistController extends ApiControllerBase
                                                         @RequestParam(defaultValue = "", required = false) String search)
     {
         Pageable paging = PageRequest.of(page, size);
-        List<Artist> trackList = artistService.getList(search, paging);
-        return apiResponseService.prepareApiResponse(trackList);
+        List<Artist> artistList = artistService.getList(search, paging);
+        return apiResponseService.prepareApiResponse(artistList);
     }
 
     @GetMapping("/{id}")
@@ -49,4 +50,19 @@ public class ArtistController extends ApiControllerBase
         artistService.update(id,artist);
         return apiResponseService.prepareApiResponse(artist);
     }
+
+    @GetMapping("/aotd")
+    public ResponseEntity<ApiResponseContainer> getArtistOfTheDay()
+    {
+        Artist artist = artistService.getAotd();
+        return apiResponseService.prepareApiResponse(artist);
+    }
+
+    @GetMapping("/{id}/tracks")
+    public ResponseEntity<ApiResponseContainer> getTracks(@PathVariable Long id)
+    {
+        List<Track> trackList = artistService.getTracks(id);
+        return apiResponseService.prepareApiResponse(trackList);
+    }
+
 }

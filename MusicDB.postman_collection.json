@@ -12,27 +12,320 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/track?page=&size=&search=",
+					"raw": "{{domain}}/track?page=0&size=1&search=track",
 					"host": [
-						"localhost"
+						"{{domain}}"
 					],
-					"port": "8080",
 					"path": [
 						"track"
 					],
 					"query": [
 						{
 							"key": "page",
-							"value": ""
+							"value": "0"
 						},
 						{
 							"key": "size",
-							"value": ""
+							"value": "1"
 						},
 						{
 							"key": "search",
-							"value": ""
+							"value": "track"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "track/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/track/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"track",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "track",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"TRACK NEW\",\r\n    \"album\" : \"album new\",\r\n    \"genre\" : \"POP\",\r\n    \"length\" : 200,\r\n    \"release\" : \"2023-02-02\",\r\n    \"language\" : \"English\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/track",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"track"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "track/{id}",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"TRACK edit\",\r\n    \"album\" : \"album old\",\r\n    \"genre\" : \"HIP-HOP\",\r\n    \"length\" : 201,\r\n    \"release\" : \"2023-02-03\",\r\n    \"language\" : \"Hindi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/track/6",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"track",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "artist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/artist?page=0&size=1&search=Pink!",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"artist"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						},
+						{
+							"key": "search",
+							"value": "Pink!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "artist/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/artist/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"artist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "artist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Zazzy B\",\r\n    \"biography\" : \"New kid on the block\",\r\n    \"dob\" : \"1989-02-02\",\r\n    \"type\" : \"SINGER\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/artist",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"artist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "artist/{id}/tracks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/artist/1/tracks",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"artist",
+						"1",
+						"tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "artist/aotd",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/artist/aotd",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"artist",
+						"aotd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "artist/{id}",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Zazzy A\",\r\n    \"biography\" : \"Old kid on the block\",\r\n    \"dob\" : \"1989-03-02\",\r\n    \"type\" : \"Giutarrist\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/artist/5",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"artist",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "colloab/{trackId}/add/{artistId}",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/collab/1/add/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"collab",
+						"1",
+						"add",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "colloab/{trackId}/remove/{artistId}",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/collab/1/remove/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"collab",
+						"1",
+						"remove",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "alias/{artistId}/add",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/alias/1/add?name=Sheetal",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"alias",
+						"1",
+						"add"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Sheetal"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "alias/remove/{id}",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/alias/remove/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"alias",
+						"remove",
+						"1"
 					]
 				}
 			},
