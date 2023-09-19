@@ -1,9 +1,9 @@
-INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 1', 'Album 1', 'Genre 1', 300, '2023-01-01', 'English');
-INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 2', 'Album 1', 'Genre 2', 400, '2023-01-01', 'English');
-INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 3', 'Album 2', 'Genre 3', 500, '2023-02-01', 'English');
-INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 4', 'Album 2', 'Genre 4', 200, '2023-02-01', 'English');
-INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 5', 'Album 3', 'Genre 5', 100, '2023-01-03', 'English');
-INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 6', 'Album 4', 'Genre 5', 100, '2023-01-03', 'English');
+INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 1', 'Album 1', 'POP', 300, '2023-01-01', 'English');
+INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 2', 'Album 1', 'ROCK', 400, '2023-01-01', 'English');
+INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 3', 'Album 2', 'ROCK', 500, '2023-02-01', 'English');
+INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 4', 'Album 2', 'HIPHOP', 200, '2023-02-01', 'English');
+INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 5', 'Album 3', 'COUNTRY', 100, '2023-01-03', 'English');
+INSERT INTO track(title, album, genre, length, release, language) VALUES('Track 6', 'Album 4', 'COUNTRY', 100, '2023-01-03', 'English');
 
 INSERT INTO collaborator(track_id, artist_id, role) VALUES(1, 1, 'SINGER');
 INSERT INTO collaborator(track_id, artist_id, role) VALUES(2, 1, 'SINGER');

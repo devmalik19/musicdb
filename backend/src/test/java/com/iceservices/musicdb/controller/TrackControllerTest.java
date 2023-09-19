@@ -48,7 +48,7 @@ public class TrackControllerTest
         this.mockMvc.perform(patch("/track/1").content("{\n" +
                 "    \"title\" : \"TRACK edit\",\n" +
                 "    \"album\" : \"album old\",\n" +
-                "    \"genre\" : \"HIP-HOP\",\n" +
+                "    \"genre\" : \"HIPHOP\",\n" +
                 "    \"length\" : 201,\n" +
                 "    \"release\" : \"2023-02-03\",\n" +
                 "    \"language\" : \"Hindi\"\n" +

@@ -17,7 +17,10 @@ public class Track extends CommonDBFields
 
     private String title;
     private String album;
+
+    @Enumerated(EnumType.STRING)
     private Genre genre;
+
     private Integer length;
     private LocalDate release;
     private String language;
