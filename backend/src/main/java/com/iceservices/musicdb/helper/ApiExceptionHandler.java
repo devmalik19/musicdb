@@ -43,13 +43,6 @@ public class ApiExceptionHandler
         return apiResponseService.prepareErrorResponse(message, HttpStatus.INTERNAL_SERVER_ERROR, e);
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ApiResponseContainer> noSuchElementException(NoSuchElementException e)
-    {
-        String message =  exceptionMessage.getNotFoundMessage();
-        return apiResponseService.prepareErrorResponse(message, HttpStatus.NOT_FOUND, e);
-    }
-
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponseContainer> resourceNotFoundException(ResourceNotFoundException e)
     {
