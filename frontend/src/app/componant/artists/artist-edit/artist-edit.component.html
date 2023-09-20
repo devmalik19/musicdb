@@ -1,0 +1,35 @@
+<div class="mat-elevation-z8">
+
+    <h2>Edit</h2>
+
+    <mat-form-field class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="name" placeholder="name">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Biography</mat-label>
+        <input  matInput  [(ngModel)]="biography" placeholder="biography">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-select [(ngModel)]="type">
+            <mat-option *ngFor="let t of artistType" [value]="t">
+                {{t}}
+            </mat-option>
+        </mat-select>
+        <mat-label>Type</mat-label>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Date of birth</mat-label>
+        <input readonly matInput [(ngModel)]="dob" [matDatepicker]="picker">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Save</button>
+
+</div>

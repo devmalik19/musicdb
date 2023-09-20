@@ -1,0 +1,41 @@
+
+<div class="mat-elevation-z8">
+
+	<mat-grid-list cols="2" rowHeight="50px">
+		<mat-grid-tile>
+			<mat-form-field style="position: absolute;left: 2%;">
+				<input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+			</mat-form-field>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<button  style="position: absolute;right: 2%;" mat-raised-button color="primary"  (click)="add();" >Add</button>
+		</mat-grid-tile>
+	</mat-grid-list>
+
+	<mat-table [dataSource]="dataSource">
+		<ng-container matColumnDef="name">
+			<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+			<mat-cell *matCellDef="let artist"> {{ artist.name }} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="biography">
+			<mat-header-cell *matHeaderCellDef>Biography</mat-header-cell>
+			<mat-cell class="biography-cell" *matCellDef="let artist"> {{ artist.biography }} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="dob">
+			<mat-header-cell *matHeaderCellDef>Date of Birth</mat-header-cell>
+			<mat-cell class="dob-cell" *matCellDef="let artist"> {{ artist.dob }} </mat-cell>
+		</ng-container>
+
+        <ng-container matColumnDef="type">
+			<mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+			<mat-cell class="type-cell" *matCellDef="let artist"> {{ artist.type }} </mat-cell>
+		</ng-container>
+
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></mat-row>
+	</mat-table>
+	<mat-paginator #paginator showFirstLastButtons [pageSizeOptions]="[5, 25, 100]"></mat-paginator>
+
+</div>

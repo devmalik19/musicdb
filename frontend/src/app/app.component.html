@@ -1,7 +1,11 @@
-<div class="navbar">
-	<a class="link" href="">Home</a>
-	<a class="link" href="/tracks">Tracks</a>
-</div>
+<mat-toolbar color="primary">
+	<mat-nav-list class="list-horizontal">
+		<a mat-button href="">Home</a>
+		<a mat-button href="/tracks">Tracks</a>
+		<a mat-button href="/artists">Artists</a>
+	</mat-nav-list>
+</mat-toolbar>
+
 <div class="container">
 	<router-outlet></router-outlet>
 </div>
