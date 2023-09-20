@@ -15,7 +15,7 @@ export class ArtistTableComponent
   constructor(private artistService:ArtistService, private router: Router ){};
 
 	title = 'music-db';
-	displayedColumns = ['name', 'biography', 'dob', 'type'];
+	displayedColumns = ['name', 'biography', 'dob', 'type', 'action'];
 	artists: Artist[] = [];
 	dataSource = new MatTableDataSource<Artist>();
 
@@ -35,10 +35,10 @@ export class ArtistTableComponent
 		});
 	}
 
-	onRowClicked(row:any) 
+	onRowClicked(id:string) 
 	{
-		console.log('Row clicked: ', row.id);
-		this.router.navigate(['/artists/edit', row.id]);
+		console.log('Row clicked: ', id);
+		this.router.navigate(['/artists/edit', id]);
 	}
 	
 	add()

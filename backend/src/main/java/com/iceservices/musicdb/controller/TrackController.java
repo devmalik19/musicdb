@@ -3,6 +3,7 @@ package com.iceservices.musicdb.controller;
 import com.iceservices.musicdb.data.dao.Track;
 import com.iceservices.musicdb.data.dto.ApiResponseContainer;
 import com.iceservices.musicdb.data.dto.TrackRequest;
+import com.iceservices.musicdb.data.dto.TrackResponse;
 import com.iceservices.musicdb.service.TrackService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,14 @@ public class TrackController extends ApiControllerBase
                                                         @RequestParam(defaultValue = "", required = false) String search)
     {
         Pageable paging = PageRequest.of(page, size);
-        List<Track> trackList = trackService.getList(search, paging);
+        List<TrackResponse> trackList = trackService.getList(search, paging);
         return apiResponseService.prepareApiResponse(trackList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseContainer> getById(@PathVariable Long id)
     {
-        Track track = trackService.getById(id);
+        TrackResponse track = trackService.getById(id);
         return apiResponseService.prepareApiResponse(track);
     }
 

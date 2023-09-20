@@ -4,6 +4,8 @@ import com.iceservices.musicdb.data.dao.Artist;
 import com.iceservices.musicdb.data.dao.Track;
 import com.iceservices.musicdb.data.dto.ApiResponseContainer;
 import com.iceservices.musicdb.data.dto.ArtistRequest;
+import com.iceservices.musicdb.data.dto.ArtistResponse;
+import com.iceservices.musicdb.data.dto.TrackResponse;
 import com.iceservices.musicdb.service.ArtistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +29,14 @@ public class ArtistController extends ApiControllerBase
                                                         @RequestParam(defaultValue = "", required = false) String search)
     {
         Pageable paging = PageRequest.of(page, size);
-        List<Artist> artistList = artistService.getList(search, paging);
+        List<ArtistResponse> artistList = artistService.getList(search, paging);
         return apiResponseService.prepareApiResponse(artistList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseContainer> getById(@PathVariable Long id)
     {
-        Artist artist = artistService.getById(id);
+        ArtistResponse artist = artistService.getById(id);
         return apiResponseService.prepareApiResponse(artist);
     }
 
@@ -55,14 +57,14 @@ public class ArtistController extends ApiControllerBase
     @GetMapping("/aotd")
     public ResponseEntity<ApiResponseContainer> getArtistOfTheDay()
     {
-        Artist artist = artistService.getAotd();
+        ArtistResponse artist = artistService.getAotd();
         return apiResponseService.prepareApiResponse(artist);
     }
 
     @GetMapping("/{id}/tracks")
     public ResponseEntity<ApiResponseContainer> getTracks(@PathVariable Long id)
     {
-        List<Track> trackList = artistService.getTracks(id);
+        List<TrackResponse> trackList = artistService.getTracks(id);
         return apiResponseService.prepareApiResponse(trackList);
     }
 

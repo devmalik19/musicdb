@@ -2,6 +2,7 @@ package com.iceservices.musicdb.service;
 
 import com.iceservices.musicdb.data.dao.Alias;
 import com.iceservices.musicdb.data.dao.Artist;
+import com.iceservices.musicdb.data.dto.ArtistResponse;
 import com.iceservices.musicdb.data.exception.ResourceNotFoundException;
 import com.iceservices.musicdb.repository.AliasRepository;
 import com.iceservices.musicdb.repository.ArtistRepository;
@@ -18,12 +19,17 @@ public class AliasService
     @Autowired
     private ArtistService artistService;
 
+    @Autowired
+    private ArtistRepository artistRepository;
+
     @SneakyThrows
     public void addAliasToArtist(Long artistId, String name)
     {
-        Artist artist = artistService.getById(artistId);
+        // To check if artist exits
+        ArtistResponse artist = artistService.getById(artistId);
+
         Alias alias = new Alias();
-        alias.setArtist(artist);
+        alias.setArtist(artistRepository.findById(artistId).get());
         alias.setName(name);
         aliasRepository.save(alias);
     }

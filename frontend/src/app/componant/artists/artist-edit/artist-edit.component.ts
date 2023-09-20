@@ -47,7 +47,7 @@ export class ArtistEditComponent implements OnInit
      this.artist.dob = this.dob
 
      this.artistService.update(this.artist).subscribe(response=>{
-       this.router.navigate(['/tracks']);
+       this.router.navigate(['/artists']);
      });
    }
 

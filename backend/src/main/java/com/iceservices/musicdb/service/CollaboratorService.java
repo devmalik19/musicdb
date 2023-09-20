@@ -4,10 +4,14 @@ import com.iceservices.musicdb.data.dao.Artist;
 import com.iceservices.musicdb.data.dao.Collaborator;
 import com.iceservices.musicdb.data.constant.CollaboratorRole;
 import com.iceservices.musicdb.data.dao.Track;
+import com.iceservices.musicdb.data.dto.ArtistResponse;
+import com.iceservices.musicdb.data.dto.TrackResponse;
 import com.iceservices.musicdb.data.exception.InvalidDataException;
 import com.iceservices.musicdb.data.exception.InvalidRoleException;
 import com.iceservices.musicdb.data.exception.ResourceNotFoundException;
+import com.iceservices.musicdb.repository.ArtistRepository;
 import com.iceservices.musicdb.repository.CollaboratorRepository;
+import com.iceservices.musicdb.repository.TrackRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,12 @@ public class CollaboratorService
 {
     @Autowired
     private CollaboratorRepository collaboratorRepository;
+
+    @Autowired
+    private ArtistRepository artistRepository;
+
+    @Autowired
+    private TrackRepository trackRepository;
 
     @Autowired
     private ArtistService artistService;
@@ -35,14 +45,9 @@ public class CollaboratorService
     @SneakyThrows
     public void addArtistToTrack(Long trackId, Long artistId, String role)
     {
-        Artist artist = artistService.getById(artistId);
-        Track track = trackService.getById(trackId);
-
-        if(artist==null)
-            throw new ResourceNotFoundException("No such Artist !");
-
-        if(track==null)
-            throw new ResourceNotFoundException("No such track !");
+        // To check if artist and track exits
+        ArtistResponse artist = artistService.getById(artistId);
+        TrackResponse track = trackService.getById(trackId);
 
         Collaborator collaborator = new Collaborator();
         try
@@ -54,8 +59,8 @@ public class CollaboratorService
             throw new InvalidRoleException("Invalid collaborator role !");
         }
 
-        collaborator.setArtist(artist);
-        collaborator.setTrack(track);
+        collaborator.setArtist(artistRepository.findById(artistId).get());
+        collaborator.setTrack(trackRepository.findById(trackId).get());
         Optional<Collaborator> found = collaboratorRepository.findOneByArtistIdAndTrackId(artistId, trackId);
         if(found.isPresent())
             throw new InvalidDataException("Already exists !");
@@ -66,15 +71,9 @@ public class CollaboratorService
     @SneakyThrows
     public void removeArtistFromTrack(Long trackId, Long artistId)
     {
-        Artist artist = artistService.getById(artistId);
-        Track track = trackService.getById(trackId);
-
-        if(artist==null)
-            throw new ResourceNotFoundException("No such Artist !");
-
-        if(track==null)
-            throw new ResourceNotFoundException("No such track !");
-
+        // To check if artist and track exits
+        ArtistResponse artist = artistService.getById(artistId);
+        TrackResponse track = trackService.getById(trackId);
 
         Optional<Collaborator> found = collaboratorRepository.findOneByArtistIdAndTrackId(artistId, trackId);
         if(found.isPresent())

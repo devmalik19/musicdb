@@ -2,6 +2,8 @@ package com.iceservices.musicdb.service;
 
 import com.iceservices.musicdb.data.dao.*;
 import com.iceservices.musicdb.data.dto.ArtistRequest;
+import com.iceservices.musicdb.data.dto.ArtistResponse;
+import com.iceservices.musicdb.data.dto.TrackResponse;
 import com.iceservices.musicdb.data.exception.ResourceNotFoundException;
 import com.iceservices.musicdb.helper.CommonUtilities;
 import com.iceservices.musicdb.repository.ArtistQueueRepository;
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ArtistService
@@ -33,22 +34,22 @@ public class ArtistService
     @Autowired
     private CommonUtilities commonUtilities;
 
-    public List<Artist> getList(String search, Pageable paging)
+    public List<ArtistResponse> getList(String search, Pageable paging)
     {
         Page<Artist> page;
         if(search.isBlank())
             page = artistRepository.findAll(paging);
         else
             page = artistRepository.findByName(search, paging);
-        return page.getContent();
+        return commonUtilities.convertArtistToArtistResponseList(page.getContent());
     }
 
     @SneakyThrows
-    public Artist getById(Long id)
+    public ArtistResponse getById(Long id)
     {
         Optional<Artist> artist = artistRepository.findById(id);
         if(artist.isPresent())
-            return artist.get();
+            return commonUtilities.convertArtistToArtistResponseObject(artist.get());
         else
             throw new ResourceNotFoundException("No such artist!");
     }
@@ -77,22 +78,30 @@ public class ArtistService
         return artist;
     }
 
+    @SneakyThrows
     public Artist update(Long id, ArtistRequest artistRequest)
     {
-        Artist artist = this.getById(id);
-        if(artistRequest.getName()!=null)
-            artist.setName(artistRequest.getName());
-        if(artistRequest.getBiography()!=null)
-            artist.setBiography(artistRequest.getBiography());
-        if(artistRequest.getDob()!=null)
-            artist.setDob(artistRequest.getDob());
-        if(artistRequest.getType()!=null)
-            artist.setType(artistRequest.getType());
-        return artistRepository.save(artist);
+        Optional<Artist> artistOptional = artistRepository.findById(id);
+        if(artistOptional.isPresent())
+        {
+            Artist artist = artistOptional.get();
+            if(artistRequest.getName()!=null)
+                artist.setName(artistRequest.getName());
+            if(artistRequest.getBiography()!=null)
+                artist.setBiography(artistRequest.getBiography());
+            if(artistRequest.getDob()!=null)
+                artist.setDob(artistRequest.getDob());
+            if(artistRequest.getType()!=null)
+                artist.setType(artistRequest.getType());
+            return artistRepository.save(artist);
+        }
+        else
+            throw new ResourceNotFoundException("No such artist !");
+
     }
 
     @SneakyThrows
-    public Artist getAotd()
+    public ArtistResponse getAotd()
     {
         Artist artist = null;
         Optional<State> optionalState = stateRepository.findByName("Artist.Of.The.Day");
@@ -138,17 +147,29 @@ public class ArtistService
                 throw new ResourceNotFoundException("No such artist !");
             }
         }
-        return artist;
+        return commonUtilities.convertArtistToArtistResponseObject(artist);
     }
 
     @SneakyThrows
-    public List<Track> getTracks(Long id)
+    public List<TrackResponse> getTracks(Long id)
     {
-        List<Track> trackList = new ArrayList<>();
+        List<TrackResponse> trackList = new ArrayList<>();
         Optional<Artist> artist = artistRepository.findById(id);
         if(artist.isPresent())
         {
-            trackList = artist.get().getCollaborators().stream().map(Collaborator::getTrack).collect(Collectors.toList());
+            artist.get().getCollaborators().stream().forEach(collaborator -> {
+                TrackResponse trackResponse = new TrackResponse();
+                Track track = collaborator.getTrack();
+                trackResponse.setId(track.getId());
+                trackResponse.setTitle(track.getTitle());
+                trackResponse.setAlbum(track.getAlbum());
+                trackResponse.setLength(track.getLength());
+                trackResponse.setLanguage(track.getLanguage());
+                trackResponse.setRelease(track.getRelease().toString());
+                trackResponse.setGenre(track.getGenre());
+                trackResponse.setArtistList(commonUtilities.getArtistList(track));
+                trackList.add(trackResponse);
+            });
         }
         else
             throw new ResourceNotFoundException("No such artist !");

@@ -37,6 +37,7 @@ import { ArtistViewComponent } from './componant/artists/artist-view/artist-view
 import { HomeComponent } from './componant/home/home.component';
 import { TableModule } from 'primeng/table';
 import { PanelModule } from 'primeng/panel';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -70,7 +71,8 @@ import { PanelModule } from 'primeng/panel';
 		MatToolbarModule,
 		MatCardModule,
 		TableModule,
-		PanelModule
+		PanelModule,
+		MatIconModule
     ]
 })
 export class AppModule {}

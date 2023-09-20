@@ -33,8 +33,17 @@
 			<mat-cell class="type-cell" *matCellDef="let artist"> {{ artist.type }} </mat-cell>
 		</ng-container>
 
+		<ng-container matColumnDef="action">
+			<mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+			<mat-cell class="action-cell" *matCellDef="let artist">  
+				<button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="onRowClicked(artist.id)">
+					<mat-icon>edit</mat-icon>
+              	</button>
+			</mat-cell>
+		</ng-container>
+
 		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-		<mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></mat-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 	</mat-table>
 	<mat-paginator #paginator showFirstLastButtons [pageSizeOptions]="[5, 25, 100]"></mat-paginator>
 

@@ -14,7 +14,7 @@ export class TrackTableComponent implements OnInit
 {
   constructor(private trackService:TrackService, private router: Router ){}
 
-	displayedColumns = ['title', 'album', 'genre', 'length', 'release', 'language']
+	displayedColumns = ['title', 'album', 'genre', 'length', 'release', 'language', 'action']
 	dataSource = new MatTableDataSource<Track>()
 
 	ngOnInit()
@@ -33,10 +33,10 @@ export class TrackTableComponent implements OnInit
 		});
 	}
 
-	onRowClicked(row:any) 
+	onRowClicked(id:string) 
 	{
-		console.log('Row clicked: ', row.id)
-		this.router.navigate(['/tracks/edit', row.id])
+		console.log('Row clicked: ', id)
+		this.router.navigate(['/tracks/edit', id])
 	}
 	
 	add()
