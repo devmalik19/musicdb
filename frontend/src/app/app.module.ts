@@ -35,6 +35,10 @@ import { ArtistEditComponent } from './componant/artists/artist-edit/artist-edit
 import {MatCardModule} from '@angular/material/card';
 import { ArtistViewComponent } from './componant/artists/artist-view/artist-view.component';
 import { HomeComponent } from './componant/home/home.component';
+import { TableModule } from 'primeng/table';
+import { PanelModule } from 'primeng/panel';
+
+
 
 
 @NgModule({
@@ -64,7 +68,9 @@ import { HomeComponent } from './componant/home/home.component';
 		MatListModule,
 		MatSidenavModule,
 		MatToolbarModule,
-		MatCardModule
+		MatCardModule,
+		TableModule,
+		PanelModule
     ]
 })
 export class AppModule {}
