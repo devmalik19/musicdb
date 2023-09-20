@@ -22,7 +22,7 @@ public class TrackController extends ApiControllerBase
 
     @GetMapping
     public ResponseEntity<ApiResponseContainer> getList(@RequestParam(defaultValue = "0", required = false) int page,
-                                                        @RequestParam(defaultValue = "2", required = false) int size,
+                                                        @RequestParam(defaultValue = "100", required = false) int size,
                                                         @RequestParam(defaultValue = "", required = false) String search)
     {
         Pageable paging = PageRequest.of(page, size);

@@ -36,7 +36,7 @@ public class ArtistControllerTest
                 "    \"name\" : \"Zazzy B\",\n" +
                 "    \"biography\" : \"New kid on the block\",\n" +
                 "    \"dob\" : \"1989-02-02\",\n" +
-                "    \"type\" : \"SINGER\"\n" +
+                "    \"type\" : \"INDIVIDUAL\"\n" +
                 "}  ").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 
@@ -47,7 +47,7 @@ public class ArtistControllerTest
                 "    \"name\" : \"Zazzy A\",\n" +
                 "    \"biography\" : \"Old kid on the block\",\n" +
                 "    \"dob\" : \"1989-03-02\",\n" +
-                "    \"type\" : \"SINGER\"\n" +
+                "    \"type\" : \"INDIVIDUAL\"\n" +
                 "}   ").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 

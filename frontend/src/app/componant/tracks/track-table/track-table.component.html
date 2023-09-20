@@ -1,0 +1,51 @@
+
+  <div class="mat-elevation-z8">
+
+	<mat-grid-list cols="2" rowHeight="50px">
+		<mat-grid-tile>
+			<mat-form-field style="position: absolute;left: 2%;">
+				<input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+			</mat-form-field>
+		</mat-grid-tile>
+		<mat-grid-tile>
+			<button  style="position: absolute;right: 2%;" mat-raised-button color="primary"  (click)="add();" >Add</button>
+		</mat-grid-tile>
+	</mat-grid-list>
+
+	<mat-table [dataSource]="dataSource">
+		<ng-container matColumnDef="title">
+			<mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+			<mat-cell *matCellDef="let track"> {{ track.title }} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="album">
+			<mat-header-cell *matHeaderCellDef>Album</mat-header-cell>
+			<mat-cell class="album-cell" *matCellDef="let track"> {{ track.album }} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="genre">
+			<mat-header-cell *matHeaderCellDef>Genre</mat-header-cell>
+			<mat-cell class="genre-cell" *matCellDef="let track"> {{ track.genre }} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="length">
+			<mat-header-cell *matHeaderCellDef>Length</mat-header-cell>
+			<mat-cell class="length-cell" *matCellDef="let track"> {{ track.length }} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="release">
+			<mat-header-cell *matHeaderCellDef>Release</mat-header-cell>
+			<mat-cell class="release-cell" *matCellDef="let track"> {{ track.release }} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="language">
+			<mat-header-cell *matHeaderCellDef>Language</mat-header-cell>
+			<mat-cell class="language-cell" *matCellDef="let track"> {{ track.language }} </mat-cell>
+		</ng-container>
+
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></mat-row>
+	</mat-table>
+	<mat-paginator #paginator showFirstLastButtons [pageSizeOptions]="[5, 25, 100]"></mat-paginator>
+
+</div>

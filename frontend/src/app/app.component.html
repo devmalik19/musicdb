@@ -1,14 +1,7 @@
-<mat-table [dataSource]="dataSource">
-	<ng-container matColumnDef="title">
-		<mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
-		<mat-cell *matCellDef="let track"> {{ track.title }} </mat-cell>
-	</ng-container>
-
-	<ng-container matColumnDef="duration">
-		<mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
-		<mat-cell class="duration-cell" *matCellDef="let track"> {{ track.duration }} </mat-cell>
-	</ng-container>
-
-	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-	<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-</mat-table>
+<div class="navbar">
+	<a class="link" href="">Home</a>
+	<a class="link" href="/tracks">Tracks</a>
+</div>
+<div class="container">
+	<router-outlet></router-outlet>
+</div>
