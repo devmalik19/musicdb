@@ -14,5 +14,4 @@ public class ArtistRequest
     private String biography;
     private LocalDate dob;
     private ArtistType type;
-    private String[] aliases;
 }

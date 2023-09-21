@@ -1,15 +1,15 @@
-<div class="mat-elevation-z8">
+<form class="mat-elevation-z8" (ngSubmit)="onSubmit()">
 
     <h2>Edit</h2>
 
     <mat-form-field class="full-width">
         <mat-label>Title</mat-label>
-        <input matInput [name]="title" [(ngModel)]="title" placeholder="title">
+        <input matInput [name]="title" [(ngModel)]="title" placeholder="title" required  [ngModelOptions]="{standalone: true}">
     </mat-form-field>
 
     <mat-form-field class="full-width">
         <mat-label>Artist</mat-label>
-        <input #myInput matInput [matAutocomplete]="auto" [(ngModel)]="artist" (keyup)="doFilter(myInput.value)">
+        <input #myInput matInput [matAutocomplete]="auto" [(ngModel)]="artist" (keyup)="doFilter(myInput.value)"   [ngModelOptions]="{standalone: true}">
         <mat-autocomplete requireSelection #auto="matAutocomplete"  [displayWith]="displayFn">
             <mat-option *ngFor="let artist of artists" [value]="artist">
                 {{artist.name}}
@@ -19,11 +19,11 @@
 
     <mat-form-field class="full-width">
         <mat-label>Album</mat-label>
-        <input  matInput [name]="album"  [(ngModel)]="album" placeholder="album">
+        <input  matInput [name]="album"  [(ngModel)]="album" placeholder="album"   [ngModelOptions]="{standalone: true}">
     </mat-form-field>
 
     <mat-form-field class="full-width">
-        <mat-select  [(ngModel)]="genre">
+        <mat-select  [(ngModel)]="genre"  [ngModelOptions]="{standalone: true}" required >
             <mat-option *ngFor="let g of genreList" [value]="g">
                 {{g}}
             </mat-option>
@@ -33,12 +33,12 @@
 
     <mat-form-field class="full-width">
         <mat-label>Length</mat-label>
-        <input  matInput [name]="length"  [(ngModel)]="length" placeholder="length">
+        <input  matInput [name]="length"  [(ngModel)]="length" placeholder="length"  [ngModelOptions]="{standalone: true}">
     </mat-form-field>
 
     <mat-form-field class="full-width">
         <mat-label>Release</mat-label>
-        <input readonly matInput [(ngModel)]="release" [matDatepicker]="picker">
+        <input readonly matInput [(ngModel)]="release" [matDatepicker]="picker"  [ngModelOptions]="{standalone: true}">
         <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -46,8 +46,8 @@
 
     <mat-form-field class="full-width">
         <mat-label>Language</mat-label>
-        <input  matInput [name]="language"  [(ngModel)]="language" placeholder="language">
+        <input  matInput [name]="language"  [(ngModel)]="language" placeholder="language"  [ngModelOptions]="{standalone: true}">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Save</button>
-</div>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+</form>

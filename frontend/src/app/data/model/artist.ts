@@ -5,5 +5,5 @@ export interface Artist
     biography:string
     dob:string | null
     type:string
-    aliases:string[]
+    aliases?:string[]
 }

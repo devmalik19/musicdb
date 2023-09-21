@@ -49,7 +49,8 @@ export class ArtistEditComponent implements OnInit
      this.artist.biography = this.biography
      this.artist.type = this.type
      this.artist.dob = this.dob
-     this.artist.aliases = []
+
+     delete this.artist.aliases
 
      this.artistService.update(this.artist).subscribe(response=>{
         this.aliasService.add(this.artist.id, this.alias).subscribe(response=>{
