@@ -1,11 +1,15 @@
 package com.iceservices.musicdb.controller;
 
+import com.iceservices.musicdb.data.dao.Alias;
 import com.iceservices.musicdb.data.dto.ApiResponseContainer;
+import com.iceservices.musicdb.data.dto.ArtistResponse;
 import com.iceservices.musicdb.service.AliasService;
 import com.iceservices.musicdb.service.ApiResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -14,6 +18,13 @@ public class AliasController extends ApiControllerBase
 {
     @Autowired
     private AliasService aliasService;
+
+    @GetMapping("/{artistId}")
+    public ResponseEntity<ApiResponseContainer> getAliases(@PathVariable Long id)
+    {
+        List<Alias> aliases = aliasService.getAliases(id);
+        return apiResponseService.prepareApiResponse(aliases);
+    }
 
     @PatchMapping("/{artistId}/add")
     public ResponseEntity<ApiResponseContainer> add(@PathVariable Long artistId,

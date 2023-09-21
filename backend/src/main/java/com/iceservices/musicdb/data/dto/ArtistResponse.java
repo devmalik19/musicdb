@@ -14,4 +14,6 @@ public class ArtistResponse
 
     private String type;
     private String role;
+
+    private String[] aliases;
 }

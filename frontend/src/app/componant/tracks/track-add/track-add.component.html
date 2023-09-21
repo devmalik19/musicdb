@@ -8,6 +8,16 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
+        <mat-label>Artist</mat-label>
+        <input #myInput matInput [matAutocomplete]="auto" [(ngModel)]="artist" (keyup)="doFilter(myInput.value)">
+        <mat-autocomplete requireSelection #auto="matAutocomplete"  [displayWith]="displayFn">
+            <mat-option *ngFor="let artist of artists" [value]="artist">
+                {{artist.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+      
+    <mat-form-field class="full-width">
         <mat-label>Album</mat-label>
         <input  matInput  [(ngModel)]="album" placeholder="album">
     </mat-form-field>

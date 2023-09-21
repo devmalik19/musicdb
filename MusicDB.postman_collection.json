@@ -191,7 +191,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\" : \"Zazzy A\",\r\n    \"biography\" : \"Old kid on the block\",\r\n    \"dob\" : \"1989-03-02\",\r\n    \"type\" : \"SINGER\"\r\n}   ",
+					"raw": "{\r\n    \"name\" : \"Zazzy A\",\r\n    \"biography\" : \"Old kid on the block\",\r\n    \"dob\" : \"1989-03-02\",\r\n    \"type\" : \"INDIVIDUAL\",\r\n    \"aliases\": [] \r\n\r\n}   ",
 					"options": {
 						"raw": {
 							"language": "json"

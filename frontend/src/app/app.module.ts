@@ -38,6 +38,8 @@ import { HomeComponent } from './componant/home/home.component';
 import { TableModule } from 'primeng/table';
 import { PanelModule } from 'primeng/panel';
 import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 
 
@@ -72,7 +74,8 @@ import {MatIconModule} from '@angular/material/icon';
 		MatCardModule,
 		TableModule,
 		PanelModule,
-		MatIconModule
+		MatIconModule,
+		MatAutocompleteModule
     ]
 })
 export class AppModule {}

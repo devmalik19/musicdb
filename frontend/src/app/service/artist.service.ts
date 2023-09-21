@@ -36,6 +36,7 @@ export class ArtistService
 		let apiResponse: ApiResponse = {} as ApiResponse;
 		return this.http.get<ApiResponse>(environment.API_URL + '/artist/aotd', { observe: 'response' }).pipe(map( response => { 
 			console.log(response)
+			apiResponse.status = response.status
 			switch(response.status)
 			{
 				case 200:
@@ -90,6 +91,15 @@ export class ArtistService
 		let apiResponse: ApiResponse = {} as ApiResponse;
 		return this.http.post<ApiResponse>(environment.API_URL + '/artist', artist, { observe: 'response' }).pipe(map( response => { 
 			console.log(response)
+			switch(response.status)
+			{
+				case 200:
+					apiResponse.data = response.body?.data
+				break;
+				case 204:
+					apiResponse.data = ""
+				break;
+			}
 			return apiResponse;
 		}));
 	}
@@ -99,6 +109,15 @@ export class ArtistService
 		let apiResponse: ApiResponse = {} as ApiResponse;
 		return this.http.patch<ApiResponse>(environment.API_URL + '/artist/'+artist.id, artist, { observe: 'response' }).pipe(map( response => { 
 			console.log(response)
+			switch(response.status)
+			{
+				case 200:
+					apiResponse.data = response.body?.data
+				break;
+				case 204:
+					apiResponse.data = ""
+				break;
+			}
 			return apiResponse;
 		}));
 	}

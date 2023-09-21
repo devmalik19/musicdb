@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TYPES } from 'src/app/data/constant/type';
 import { Artist } from 'src/app/data/model/artist';
+import { AliasService } from 'src/app/service/alias.service';
 import { ArtistService } from 'src/app/service/artist.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class ArtistEditComponent implements OnInit
 {
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router, 
+    private aliasService: AliasService,
     private artistService: ArtistService ){};
 
    artistType = Object.values(TYPES).filter(value => typeof value === 'string');
@@ -24,6 +26,7 @@ export class ArtistEditComponent implements OnInit
    biography:string  = "";
    type:string  = "";
    dob:string  = "";
+   alias:string=""
 
    ngOnInit()
    {
@@ -34,6 +37,7 @@ export class ArtistEditComponent implements OnInit
            this.biography = response.data.biography
            this.type = response.data.type
            this.dob = response.data.dob
+           this.alias = response.data.aliases
          });
      });
    }
@@ -45,9 +49,12 @@ export class ArtistEditComponent implements OnInit
      this.artist.biography = this.biography
      this.artist.type = this.type
      this.artist.dob = this.dob
+     this.artist.aliases = []
 
      this.artistService.update(this.artist).subscribe(response=>{
-       this.router.navigate(['/artists']);
+        this.aliasService.add(this.artist.id, this.alias).subscribe(response=>{
+          this.router.navigate(['/artists']);
+        })
      });
    }
 

@@ -1,5 +1,6 @@
 package com.iceservices.musicdb.helper;
 
+import com.iceservices.musicdb.data.dao.Alias;
 import com.iceservices.musicdb.data.dao.Artist;
 import com.iceservices.musicdb.data.dao.Track;
 import com.iceservices.musicdb.data.dto.ArtistResponse;
@@ -61,6 +62,7 @@ public class CommonUtilities
         artistResponse.setBiography(artist.getBiography());
         artistResponse.setDob(artist.getDob().toString());
         artistResponse.setType(String.valueOf(artist.getType()));
+        artistResponse.setAliases(artist.getAliases().stream().map(Alias::getName).toArray(String[]::new));
         return artistResponse;
     }
 

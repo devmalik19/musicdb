@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { GENRE } from 'src/app/data/constant/genre';
 import { TYPES } from 'src/app/data/constant/type';
 import { Artist } from 'src/app/data/model/artist';
+import { AliasService } from 'src/app/service/alias.service';
 import { ArtistService } from 'src/app/service/artist.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class ArtistAddComponent
     constructor(
                 private router: Router, 
                 private datePipe: DatePipe,
+                private aliasService: AliasService,
                 private artistService: ArtistService ){};
     
     artistType = Object.values(TYPES).filter(value => typeof value === 'string');
@@ -27,6 +28,7 @@ export class ArtistAddComponent
     biography:string  = "";
     type:string  = "";
     dob:Date  = new Date;
+    alias:string=""
 
     onSubmit(): void 
     {
@@ -38,7 +40,9 @@ export class ArtistAddComponent
 
       console.log(newArtist)
       this.artistService.create(newArtist).subscribe(response=>{
-        this.router.navigate(['/artists']);
+        this.aliasService.add(response.data.id, this.alias).subscribe(response=>{
+          this.router.navigate(['/artists']);
+        })
       });
     }
 

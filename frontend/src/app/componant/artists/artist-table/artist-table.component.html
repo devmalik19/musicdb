@@ -18,6 +18,11 @@
 			<mat-cell *matCellDef="let artist"> {{ artist.name }} </mat-cell>
 		</ng-container>
 
+		<ng-container matColumnDef="alias">
+			<mat-header-cell *matHeaderCellDef> Alias </mat-header-cell>
+			<mat-cell *matCellDef="let artist"> {{ artist.aliases }} </mat-cell>
+		</ng-container>
+
 		<ng-container matColumnDef="biography">
 			<mat-header-cell *matHeaderCellDef>Biography</mat-header-cell>
 			<mat-cell class="biography-cell" *matCellDef="let artist"> {{ artist.biography }} </mat-cell>

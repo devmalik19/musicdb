@@ -1,6 +1,6 @@
 export interface ApiResponse 
 {   
-    status:bigint;
+    status:number;
     data:any;
     error:string;
     message:string;

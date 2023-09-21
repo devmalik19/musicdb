@@ -15,7 +15,7 @@ export class ArtistTableComponent
   constructor(private artistService:ArtistService, private router: Router ){};
 
 	title = 'music-db';
-	displayedColumns = ['name', 'biography', 'dob', 'type', 'action'];
+	displayedColumns = ['name', 'alias', 'biography', 'dob', 'type', 'action'];
 	artists: Artist[] = [];
 	dataSource = new MatTableDataSource<Artist>();
 

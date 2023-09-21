@@ -10,6 +10,8 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AliasService
 {
@@ -21,6 +23,15 @@ public class AliasService
 
     @Autowired
     private ArtistRepository artistRepository;
+
+    public List<Alias> getAliases(Long artistId)
+    {
+        // To check if artist exits
+        artistService.getById(artistId);
+
+        Artist artist = artistRepository.findById(artistId).get();
+        return artist.getAliases();
+    }
 
     @SneakyThrows
     public void addAliasToArtist(Long artistId, String name)

@@ -14,7 +14,7 @@ export class TrackTableComponent implements OnInit
 {
   constructor(private trackService:TrackService, private router: Router ){}
 
-	displayedColumns = ['title', 'album', 'genre', 'length', 'release', 'language', 'action']
+	displayedColumns = ['title', 'artists', 'album', 'genre', 'length', 'release', 'language', 'action']
 	dataSource = new MatTableDataSource<Track>()
 
 	ngOnInit()

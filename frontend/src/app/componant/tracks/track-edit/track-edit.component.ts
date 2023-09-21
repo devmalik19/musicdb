@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GENRE } from 'src/app/data/constant/genre';
+import { Artist } from 'src/app/data/model/artist';
 import { Track } from 'src/app/data/model/track';
+import { ArtistService } from 'src/app/service/artist.service';
+import { CollaboratorService } from 'src/app/service/collaborator.service';
 import { TrackService } from 'src/app/service/track.service';
 
 
@@ -14,6 +17,8 @@ import { TrackService } from 'src/app/service/track.service';
 export class TrackEditComponent implements OnInit 
 {
     constructor(private activatedRoute: ActivatedRoute,
+                private artistService: ArtistService,
+                private collabService: CollaboratorService,
                 private router: Router, 
                 private trackService: TrackService ){};
     
@@ -26,7 +31,9 @@ export class TrackEditComponent implements OnInit
     genre:string = "";
     length:string = "";
     release:string  = "";
-    language:string  = "";          
+    language:string  = "";   
+    artist:Artist = {} as Artist;
+    artists:Artist[] = [];          
 
     ngOnInit()
     {
@@ -41,6 +48,8 @@ export class TrackEditComponent implements OnInit
             this.language = response.data.language
           });
       });
+
+      this.doFilter("");
     }
 
     onSubmit(): void 
@@ -54,7 +63,29 @@ export class TrackEditComponent implements OnInit
       this.track.language = this.language
 
       this.trackService.update(this.track).subscribe(response=>{
-        this.router.navigate(['/tracks']);
+        if(this.artist.id==undefined)
+        {
+          this.router.navigate(['/tracks']);
+        }
+        else 
+        {
+          this.collabService.add(this.track.id, this.artist.id).subscribe(response=>{
+            this.router.navigate(['/tracks']);
+          })
+        }
       });
+    }
+
+    doFilter(search:string):void
+    {
+      this.artistService.getArtistList(search).subscribe(response=>{
+        if(response.data!="")
+          this.artists = response.data; 
+      });
+    }
+
+    displayFn(artist: Artist): string 
+    {
+      return artist && artist.name ? artist.name : '';
     }
 }

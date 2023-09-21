@@ -18,6 +18,18 @@
 			<mat-cell *matCellDef="let track"> {{ track.title }} </mat-cell>
 		</ng-container>
 
+		<ng-container matColumnDef="artists">
+			<mat-header-cell *matHeaderCellDef>Artist</mat-header-cell>
+			<mat-cell class="artists-cell" *matCellDef="let track"> 
+				<div *ngFor="let arr of track.artistList; let i = index;">
+					<div *ngFor="let artist of arr | keyvalue">
+						<div *ngIf="artist.key == 'name'"> {{ artist.value }} &nbsp;
+						</div> 
+					</div>
+				</div>
+			</mat-cell>
+		</ng-container>
+
 		<ng-container matColumnDef="album">
 			<mat-header-cell *matHeaderCellDef>Album</mat-header-cell>
 			<mat-cell class="album-cell" *matCellDef="let track"> {{ track.album }} </mat-cell>

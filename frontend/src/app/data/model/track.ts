@@ -1,3 +1,5 @@
+import { Artist } from "./artist";
+
 export interface Track 
 {   
     id:string;
@@ -7,4 +9,5 @@ export interface Track
     length:string;
     release:string | null;
     language:string;
+    artistList:Artist[];
 }
